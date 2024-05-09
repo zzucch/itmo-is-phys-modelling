@@ -1,0 +1,11 @@
+{
+  "gravity_acceleration": 9.81,
+  "pendulum_length": 1.0,
+  "pendulum_mass": 1.0,
+  "spring_stiffness": 0.5,
+  "damping_coefficient": 0.1,
+  "distance_to_spring": 0.5,
+  "initial_angle1": 0.5,
+  "initial_angle2": -0.5,
+  "max_time": 50.0
+}
