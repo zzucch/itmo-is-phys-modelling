@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	data, err := os.ReadFile("config.json")
+	data, err := os.ReadFile("pendulum_config.json")
 	if err != nil {
 		log.Fatal("failed to open config file", "err", err)
 	}
@@ -27,12 +27,12 @@ func main() {
 		result.Phi1,
 		result.Phi2,
 		cfg.MaxTime,
-		"pendulum_angles_vs_time.png")
+		"pendulums_angles_vs_time.png")
 
 	plotting.PlotVelocities(
 		result.T,
 		result.V1,
 		result.V2,
 		cfg.MaxTime,
-		"pendulum_velocities_vs_time.png")
+		"pendulums_velocities_vs_time.png")
 }
