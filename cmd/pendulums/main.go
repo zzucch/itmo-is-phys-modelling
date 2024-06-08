@@ -20,11 +20,19 @@ func main() {
 		log.Fatal("failed to parse config file", "err", err)
 	}
 
-	t, phi1, phi2, v1, v2 := calculation.Calculate(*cfg)
+	result := calculation.Calculate(*cfg)
 
 	plotting.PlotAngles(
-		t, phi1, phi2, cfg.MaxTime, "pendulum_angles_vs_time.png")
+		result.T,
+		result.Phi1,
+		result.Phi2,
+		cfg.MaxTime,
+		"pendulum_angles_vs_time.png")
 
 	plotting.PlotVelocities(
-		t, v1, v2, cfg.MaxTime, "pendulum_velocities_vs_time.png")
+		result.T,
+		result.V1,
+		result.V2,
+		cfg.MaxTime,
+		"pendulum_velocities_vs_time.png")
 }

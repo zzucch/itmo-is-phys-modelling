@@ -74,25 +74,25 @@ func PlotVelocities(t, v1, v2 []float64, maxTime float64, filename string) {
 		xy4[i].Y = v2[i]
 	}
 
-	line3, err := plotter.NewLine(xy3)
+	line1, err := plotter.NewLine(xy3)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	line3.Width = width
-	line3.Color = color.RGBA{R: 255, A: 255}
+	line1.Width = width
+	line1.Color = color.RGBA{R: 255, A: 255}
 
-	line4, err := plotter.NewLine(xy4)
+	line2, err := plotter.NewLine(xy4)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	line4.Width = width
-	line4.Color = color.RGBA{B: 255, A: 255}
+	line2.Width = width
+	line2.Color = color.RGBA{B: 255, A: 255}
 
-	p.Add(line3, line4)
-	p.Legend.Add("First pendulum", line3)
-	p.Legend.Add("Second pendulum", line4)
+	p.Add(line1, line2)
+	p.Legend.Add("First pendulum", line1)
+	p.Legend.Add("Second pendulum", line2)
 
 	p.X.Max = maxTime / 2
 	p.Y.Max = (sliceMax(v1)+sliceMax(v2))/2 + (sliceMin(v1)+sliceMin(v2))/2

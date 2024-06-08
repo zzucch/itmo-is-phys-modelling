@@ -7,34 +7,37 @@ import (
 	"github.com/zzucch/itmo-is-phys-modelling/internal/config"
 )
 
-func Calculate(cfg config.Config) (t, phi1, phi2, v1, v2 []float64) {
-	omega1, omega2 := calculateFrequencies(cfg)
-	phi10, phi20 := calculateInitialAngles(cfg.InitialAngle1, cfg.InitialAngle2)
+type CalculationResult struct {
+	T    []float64
+	Phi1 []float64
+	Phi2 []float64
+	V1   []float64
+	V2   []float64
+}
 
-	dt := 0.001
-
-	t = make([]float64, 0, int(cfg.MaxTime/dt)+1)
-	phi1 = make([]float64, 0, int(cfg.MaxTime/dt)+1)
-	phi2 = make([]float64, 0, int(cfg.MaxTime/dt)+1)
-	v1 = make([]float64, 0, int(cfg.MaxTime/dt)+1)
-	v2 = make([]float64, 0, int(cfg.MaxTime/dt)+1)
-
-	for i := 0.0; i <= cfg.MaxTime/dt; i++ {
-		time := i * dt
-
-		phi1t, phi2t, v1t, v2t := calculateValuesAtTime(
-			time, phi10, phi20, omega1, omega2, cfg.DampingCoefficient)
-
-		t = append(t, time)
-		phi1 = append(phi1, phi1t)
-		phi2 = append(phi2, phi2t)
-		v1 = append(v1, v1t)
-		v2 = append(v2, v2t)
+func Calculate(cfg config.Config) CalculationResult {
+	size := int(math.Ceil(cfg.MaxTime / cfg.TimeStep))
+	result := CalculationResult{
+		T:    make([]float64, 0, size),
+		Phi1: make([]float64, 0, size),
+		Phi2: make([]float64, 0, size),
+		V1:   make([]float64, 0, size),
+		V2:   make([]float64, 0, size),
 	}
 
+	omega1, omega2 := calculateFrequencies(cfg)
 	printResults(omega1, omega2)
 
-	return t, phi1, phi2, v1, v2
+	phi1Initial, phi2Initial := calculateInitialAngles(cfg.InitialAngle1, cfg.InitialAngle2)
+
+	for time := 0.0; time <= cfg.MaxTime; time += cfg.TimeStep {
+		phi1t, phi2t, v1t, v2t := calculateValuesAtTime(
+			time, phi1Initial, phi2Initial, omega1, omega2, cfg.DampingCoefficient)
+
+		appendToResult(&result, time, phi1t, phi2t, v1t, v2t)
+	}
+
+	return result
 }
 
 func calculateFrequencies(cfg config.Config) (float64, float64) {
@@ -70,6 +73,16 @@ func calculateValuesAtTime(
 		phi20*omega2*math.Sin(omega2*time)) * math.Exp(-dampingCoefficient*time)
 
 	return phi1t, phi2t, v1t, v2t
+}
+
+func appendToResult(
+	result *CalculationResult, time, phi1, phi2, v1, v2 float64,
+) {
+	result.T = append(result.T, time)
+	result.Phi1 = append(result.Phi1, phi1)
+	result.Phi2 = append(result.Phi2, phi2)
+	result.V1 = append(result.V1, v1)
+	result.V2 = append(result.V2, v2)
 }
 
 func printResults(omega1, omega2 float64) {
