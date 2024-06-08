@@ -8,5 +8,5 @@
   "initial_angle1": 0.5,
   "initial_angle2": -0.5,
   "max_time": 50.0,
-  "time_step": 50.0
+  "time_step": 0.001
 }

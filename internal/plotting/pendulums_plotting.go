@@ -19,8 +19,6 @@ func PlotAngles(t, phi1, phi2 []float64, maxTime float64, filename string) {
 	p.X.Label.Text = "Time (sec)"
 	p.Y.Label.Text = "Angle (rad)"
 
-	width = vg.Points(0.7)
-
 	xy1 := make(plotter.XYs, len(t))
 	xy2 := make(plotter.XYs, len(t))
 	for i := range t {
@@ -65,16 +63,16 @@ func PlotVelocities(t, v1, v2 []float64, maxTime float64, filename string) {
 	p.X.Label.Text = "Time (sec)"
 	p.Y.Label.Text = "Velocity (rad/sec)"
 
-	xy3 := make(plotter.XYs, len(t))
-	xy4 := make(plotter.XYs, len(t))
+	xy1 := make(plotter.XYs, len(t))
+	xy2 := make(plotter.XYs, len(t))
 	for i := range t {
-		xy3[i].X = t[i]
-		xy3[i].Y = v1[i]
-		xy4[i].X = t[i]
-		xy4[i].Y = v2[i]
+		xy1[i].X = t[i]
+		xy1[i].Y = v1[i]
+		xy2[i].X = t[i]
+		xy2[i].Y = v2[i]
 	}
 
-	line1, err := plotter.NewLine(xy3)
+	line1, err := plotter.NewLine(xy1)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -82,7 +80,7 @@ func PlotVelocities(t, v1, v2 []float64, maxTime float64, filename string) {
 	line1.Width = width
 	line1.Color = color.RGBA{R: 255, A: 255}
 
-	line2, err := plotter.NewLine(xy4)
+	line2, err := plotter.NewLine(xy2)
 	if err != nil {
 		log.Fatal(err)
 	}

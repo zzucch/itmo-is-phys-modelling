@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	data, err := os.ReadFile("pendulum_config.json")
+	data, err := os.ReadFile("pendulums_config.json")
 	if err != nil {
 		log.Fatal("failed to open config file", "err", err)
 	}
