@@ -10,29 +10,22 @@ import (
 )
 
 func main() {
-	data, err := os.ReadFile("pendulums_config.json")
+	data, err := os.ReadFile("newtons_rings_config.json")
 	if err != nil {
 		log.Fatal("failed to open config file", "err", err)
 	}
 
-	cfg, err := config.ParsePendulumsData(data)
+	cfg, err := config.ParseNewtonsRingsData(data)
 	if err != nil {
 		log.Fatal("failed to parse config file", "err", err)
 	}
 
-	result := calculation.CalculatePendulums(*cfg)
+	result := calculation.CalculateNewtonsRings(*cfg)
 
-	plotting.PlotPendulumAngles(
-		result.T,
-		result.Phi1,
-		result.Phi2,
-		cfg.MaxTime,
-		"pendulums_angles_vs_time.png")
-
-	plotting.PlotPendulumVelocities(
-		result.T,
-		result.V1,
-		result.V2,
-		cfg.MaxTime,
-		"pendulums_velocities_vs_time.png")
+	err = plotting.PlotIntensityDistribution(
+		result,
+		"rings_intensity_distribution.png")
+	if err != nil {
+		log.Fatal("failed to plot intensity distribution", "err", err)
+	}
 }

@@ -12,7 +12,7 @@ import (
 
 var width font.Length = vg.Points(0.7)
 
-func PlotAngles(t, phi1, phi2 []float64, maxTime float64, filename string) {
+func PlotPendulumAngles(t, phi1, phi2 []float64, maxTime float64, filename string) {
 	p := plot.New()
 
 	p.Title.Text = "Coupled Pendulums"
@@ -56,7 +56,7 @@ func PlotAngles(t, phi1, phi2 []float64, maxTime float64, filename string) {
 	}
 }
 
-func PlotVelocities(t, v1, v2 []float64, maxTime float64, filename string) {
+func PlotPendulumVelocities(t, v1, v2 []float64, maxTime float64, filename string) {
 	p := plot.New()
 
 	p.Title.Text = "Velocity of Coupled Pendulums"

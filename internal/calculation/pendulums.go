@@ -15,7 +15,7 @@ type CalculationResult struct {
 	V2   []float64
 }
 
-func Calculate(cfg config.Config) CalculationResult {
+func CalculatePendulums(cfg config.PendulumsConfig) CalculationResult {
 	size := int(math.Ceil(cfg.MaxTime / cfg.TimeStep))
 	result := CalculationResult{
 		T:    make([]float64, 0, size),
@@ -40,7 +40,7 @@ func Calculate(cfg config.Config) CalculationResult {
 	return result
 }
 
-func calculateFrequencies(cfg config.Config) (float64, float64) {
+func calculateFrequencies(cfg config.PendulumsConfig) (float64, float64) {
 	omega1 := math.Sqrt(cfg.GravityAcceleration / cfg.PendulumLength)
 
 	omega2 := math.Sqrt(cfg.GravityAcceleration/cfg.PendulumLength +

@@ -5,7 +5,7 @@ import (
 	"errors"
 )
 
-type Config struct {
+type PendulumsConfig struct {
 	GravityAcceleration float64 `json:"gravity_acceleration"`
 	PendulumLength      float64 `json:"pendulum_length"`
 	PendulumMass        float64 `json:"pendulum_mass"`
@@ -18,8 +18,8 @@ type Config struct {
 	TimeStep            float64 `json:"time_step"`
 }
 
-func Parse(data []byte) (*Config, error) {
-	var cfg Config
+func ParsePendulumsData(data []byte) (*PendulumsConfig, error) {
+	var cfg PendulumsConfig
 
 	err := json.Unmarshal(data, &cfg)
 	if err != nil {
@@ -39,3 +39,4 @@ func Parse(data []byte) (*Config, error) {
 
 	return &cfg, nil
 }
+
