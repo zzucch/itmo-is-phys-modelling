@@ -1,3 +1,10 @@
 pendulums_angles_vs_time.png
 pendulums_velocities_vs_time.png
 rings_intensity_distribution.png
+
+.direnv/
+
+
+# Added by cargo
+
+/target
